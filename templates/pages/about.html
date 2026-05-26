@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n_extras %}
+
+{% block page_id %}about{% endblock %}
+{% block title %}{{ tr.about_title }} · {{ site_settings.brand_name }}{% endblock %}
+
+{% block content %}
+
+<section class="page-heading">
+  <div class="container">
+    <div class="eyebrow">About us</div>
+    <h1 class="display">{{ tr.about_title }}</h1>
+    <p>{{ tr.site_tagline }}. {{ tr.about_intro }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% for block in story_blocks %}
+      <div class="split {% if forloop.counter|divisibleby:2 %}split--reverse{% endif %} reveal" style="margin-bottom: {% if not forloop.last %}80px{% else %}0{% endif %};">
+        <div class="split__media">
+          {% if block.image %}
+            <img src="{% static 'images/' %}{{ block.image.name }}" alt="{{ block.image_alt }}" loading="lazy" />
+          {% else %}
+            <div class="placeholder-art">{{ block.title|slice:":1" }}</div>
+          {% endif %}
+        </div>
+        <div class="split__content">
+          <span class="eyebrow">{{ block.eyebrow|lt:current_language }}</span>
+          <h2 class="display split__title">{{ block.title|lt:current_language }}</h2>
+          <p class="split__body">{{ block.body|lt:current_language|linebreaksbr }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <div class="split">
+        <div class="split__media"><div class="placeholder-art">Y</div></div>
+        <div class="split__content">
+          <span class="eyebrow">Our story</span>
+          <h2 class="display split__title">{{ tr.about_story_title }}</h2>
+          <p class="split__body">{{ tr.about_story_empty }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Values -->
+<section class="section--ink" style="padding: 0;">
+  <div class="container" style="padding-top: 64px;">
+    <div class="section-head">
+      <div class="section-head__row">
+        <div>
+          <div class="eyebrow on-dark">Values</div>
+          <h2 class="display" style="margin-top: 12px;">{{ tr.values_title }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="features">
+    {% for f in features %}
+      <div class="feature reveal reveal--delay-{{ forloop.counter }}">
+        <span class="feature__icon">
+          {% if f.icon == 'wifi' %}∿{% elif f.icon == 'leaf' %}❦{% elif f.icon == 'clock' %}◷{% elif f.icon == 'heart' %}♥{% elif f.icon == 'beans' %}◉{% else %}☕{% endif %}
+        </span>
+        <h3 class="feature__title">{{ f.title|lt:current_language }}</h3>
+        <p class="feature__desc">{{ f.description|lt:current_language }}</p>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="container" style="padding-top: 64px; padding-bottom: 64px;"></div>
+</section>
+
+<!-- Team -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__row">
+        <div>
+          <div class="eyebrow">Our team</div>
+          <h2 class="display" style="margin-top: 12px;">{{ tr.team_title }}</h2>
+        </div>
+        <p class="section-head__intro">{{ tr.team_intro }}</p>
+      </div>
+    </div>
+
+    <div class="team-grid">
+      {% for m in team %}
+        <article class="team-card reveal reveal--delay-{{ forloop.counter|divisibleby:4 }}">
+          <div class="team-card__media">
+            {% if m.photo %}
+              <img src="{% static 'images/' %}{{ m.photo.name }}" alt="{{ m.name }}" loading="lazy" />
+            {% else %}
+              <div class="placeholder-art">{{ m.name|slice:":1" }}</div>
+            {% endif %}
+          </div>
+          <div class="team-card__body">
+            <div class="team-card__name">{{ m.name }}</div>
+            <div class="team-card__role">{{ m.role|lt:current_language }}</div>
+            {% if m.bio %}<p style="color: var(--mute); margin-top: 8px; font-size: 13px;">{{ m.bio|lt:current_language }}</p>{% endif %}
+          </div>
+        </article>
+      {% empty %}
+        <article class="team-card">
+          <div class="team-card__media"><div class="placeholder-art">Y</div></div>
+          <div class="team-card__body">
+            <div class="team-card__name">{{ tr.soon }}</div>
+            <div class="team-card__role">{{ tr.team_yarcoffee }}</div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if interior %}
+<section class="section section--paper-deep">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__row">
+        <div>
+          <div class="eyebrow">Interior</div>
+          <h2 class="display" style="margin-top: 12px;">{{ tr.interior_title }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-grid">
+      {% for g in interior %}
+        <div class="gallery-tile {{ g.span }} reveal" {% if g.image %}data-lightbox-trigger data-src="{% static 'images/' %}{{ g.image.name }}"{% endif %}>
+          {% if g.image %}
+            <img src="{% static 'images/' %}{{ g.image.name }}" alt="{{ g.title }}" loading="lazy" />
+          {% else %}
+            <div class="placeholder-art">{{ g.title|default:"Y"|slice:":1" }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section--ink section--tight" style="text-align: center;">
+  <div class="container">
+    <div class="eyebrow on-dark">{{ tr.visit_eyebrow }}</div>
+    <h2 class="display" style="font-size: clamp(28px, 4.5vw, 56px); margin-top: 18px;">{{ site_settings.address }}</h2>
+    <p style="color: var(--mute-inv); margin-top: 16px;">{{ site_settings.working_hours }}</p>
+    <div style="margin-top: 28px;">
+      <a href="{{ site_urls.contacts }}" class="btn btn--cream">{{ tr.nav_contacts }}</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

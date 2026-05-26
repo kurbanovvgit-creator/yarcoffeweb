@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n_extras %}
+
+{% block page_id %}gallery{% endblock %}
+{% block title %}{{ tr.gallery_title }} · {{ site_settings.brand_name }}{% endblock %}
+
+{% block content %}
+
+<section class="page-heading">
+  <div class="container">
+    <div class="eyebrow">Gallery</div>
+    <h1 class="display">{{ tr.gallery_title }}</h1>
+    <p>{{ tr.gallery_intro }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="menu-tabs">
+      <a href="{{ site_urls.gallery }}" class="menu-tab {% if not active_category %}is-active{% endif %}">{{ tr.gallery_all }}</a>
+      {% for value, label in categories %}
+        <a href="?category={{ value }}" class="menu-tab {% if active_category == value %}is-active{% endif %}">{{ label|lt:current_language }}</a>
+      {% endfor %}
+    </div>
+
+    <div class="gallery-grid">
+      {% for g in images %}
+        <div class="gallery-tile {{ g.span }} reveal reveal--delay-{{ forloop.counter|divisibleby:4 }}" {% if g.image %}data-lightbox-trigger data-src="{% static 'images/' %}{{ g.image.name }}"{% endif %}>
+          {% if g.image %}
+            <img src="{% static 'images/' %}{{ g.image.name }}" alt="{{ g.title }}" loading="lazy" />
+          {% else %}
+            <div class="placeholder-art">{{ g.title|default:"Y"|slice:":1" }}</div>
+          {% endif %}
+          {% if g.title %}<div class="gallery-tile__caption">{{ g.title }}</div>{% endif %}
+        </div>
+      {% empty %}
+        <div style="grid-column: 1 / -1; padding: 60px 0; text-align: center; color: var(--mute);">
+          {{ tr.gallery_empty }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

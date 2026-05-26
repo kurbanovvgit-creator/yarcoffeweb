@@ -1,0 +1,30 @@
+{% load static %}
+{% load i18n_extras %}
+<article class="drink-card reveal">
+  <div class="drink-card__media">
+    {% if drink.image %}
+      <img src="{% static 'images/' %}{{ drink.image.name }}" alt="{{ drink.name }}" loading="lazy" />
+    {% else %}
+      <div class="placeholder-art">{{ drink.name|slice:":1" }}</div>
+    {% endif %}
+    {% if drink.is_new %}<span class="drink-card__badge drink-card__badge--new">{{ tr.new }}</span>{% endif %}
+  </div>
+  <div class="drink-card__body">
+    <div class="drink-card__cat">{{ drink.category.name|lt:current_language }}</div>
+    <h3 class="drink-card__title">{{ drink.name|lt:current_language }}</h3>
+    {% if drink.short_description %}
+      <p class="drink-card__desc">{{ drink.short_description }}</p>
+    {% endif %}
+    {% if drink.tag_list %}
+      <div class="drink-card__tags">
+        {% for tag in drink.tag_list %}<span>·&nbsp;{{ tag }}</span>{% endfor %}
+      </div>
+    {% endif %}
+    <div class="drink-card__foot">
+      <div class="drink-card__price">
+        {{ drink.price|floatformat:0 }}<small>{{ drink.price_label }}</small>
+      </div>
+      {% if drink.volume %}<div class="tag-chip">{{ drink.volume }}</div>{% endif %}
+    </div>
+  </div>
+</article>

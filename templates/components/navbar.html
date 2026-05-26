@@ -1,0 +1,45 @@
+{% load static %}
+{% with current=request.resolver_match.url_name app=request.resolver_match.app_name %}
+<header class="nav {% block nav_modifier %}{% endblock %}" data-nav>
+  <div class="container nav__inner">
+    <a href="{{ site_urls.home }}" class="nav__brand" aria-label="{{ site_settings.brand_name }}">
+      <img class="nav__logo" src="{% static 'images/logo/logo.png' %}" alt="{{ site_settings.brand_name }}" />
+    </a>
+
+    <nav class="nav__links" aria-label="{{ tr.nav_aria }}">
+      <a class="nav__link {% if current == 'home' %}is-active{% endif %}" href="{{ site_urls.home }}">{{ tr.nav_home }}</a>
+      <a class="nav__link {% if app == 'menu' %}is-active{% endif %}" href="{{ site_urls.menu }}">{{ tr.nav_menu }}</a>
+      <a class="nav__link {% if current == 'about' %}is-active{% endif %}" href="{{ site_urls.about }}">{{ tr.nav_about }}</a>
+      <a class="nav__link {% if current == 'contacts' %}is-active{% endif %}" href="{{ site_urls.contacts }}">{{ tr.nav_contacts }}</a>
+    </nav>
+
+    <div class="nav__right">
+      <div class="language-switcher" aria-label="Language">
+        {% for lang in language_options %}
+          <a class="{% if lang.active %}is-active{% endif %}" href="{{ lang.url }}">{{ lang.label }}</a>
+        {% endfor %}
+      </div>
+      <a href="{{ site_urls.contacts }}" class="nav__cta">{{ tr.nav_cta }}</a>
+    </div>
+
+    <button class="nav__burger" data-burger aria-label="{{ tr.nav_menu }}"><span></span></button>
+  </div>
+
+  <div class="nav__mobile" data-mobile-menu>
+    <a href="{{ site_urls.home }}">{{ tr.nav_home }}</a>
+    <a href="{{ site_urls.menu }}">{{ tr.nav_menu }}</a>
+    <a href="{{ site_urls.about }}">{{ tr.nav_about }}</a>
+    <a href="{{ site_urls.contacts }}">{{ tr.nav_contacts }}</a>
+    <div class="language-switcher language-switcher--mobile" aria-label="Language">
+      {% for lang in language_options %}
+        <a class="{% if lang.active %}is-active{% endif %}" href="{{ lang.url }}">{{ lang.name }}</a>
+      {% endfor %}
+    </div>
+    <div class="nav__mobile-meta">
+      <div>{{ site_settings.address }}</div>
+      <div>{{ site_settings.working_hours }}</div>
+      <div>{{ site_settings.phone }}</div>
+    </div>
+  </div>
+</header>
+{% endwith %}

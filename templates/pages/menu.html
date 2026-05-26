@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n_extras %}
+
+{% block page_id %}menu{% endblock %}
+{% block title %}{{ tr.menu_title }} · {{ site_settings.brand_name }}{% endblock %}
+
+{% block content %}
+
+<section class="section menu-page-section">
+  <div class="container">
+
+    <div class="menu-tabs">
+      {% for cat in categories %}
+        <a href="#cat-{{ cat.slug }}" class="menu-tab {% if forloop.first %}is-active{% endif %}" data-menu-tab="{{ cat.slug }}">{{ cat.name|lt:current_language }}</a>
+      {% endfor %}
+    </div>
+
+    {% for cat in categories %}
+      <div id="cat-{{ cat.slug }}" class="menu-block reveal">
+        <div class="menu-block__head">
+          <div>
+            <div class="eyebrow">{{ cat.eyebrow|default:cat.name }}</div>
+            <h2 class="display menu-block__title">{{ cat.name|lt:current_language }}</h2>
+            {% if cat.description %}<p style="color: var(--mute); max-width: 520px; margin-top: 10px;">{{ cat.description|lt:current_language }}</p>{% endif %}
+          </div>
+          <div class="menu-block__count">{{ cat.drinks.count }} {{ tr.menu_count }}</div>
+        </div>
+
+        <div class="menu-card-grid">
+          {% for d in cat.drinks.all %}
+            {% if d.is_active %}
+              <article class="menu-card reveal">
+                <div class="menu-card__media">
+                  {% if d.image %}
+                    <img src="{% static 'images/' %}{{ d.image.name }}" alt="{{ d.name }}" loading="lazy" />
+                  {% else %}
+                    <div class="placeholder-art" style="font-size: 34px;">{{ d.name|slice:":1" }}</div>
+                  {% endif %}
+                  {% if d.is_new %}<span class="menu-card__badge">{{ tr.new }}</span>{% endif %}
+                </div>
+                <div class="menu-card__body">
+                  <div class="menu-card__category">{{ d.category.name|lt:current_language }}</div>
+                  <h3 class="menu-card__name">{{ d.name|lt:current_language }}</h3>
+
+                  <div class="menu-card__type" aria-label="{{ tr.menu_type_aria }}">
+                    {% if d.volume %}<span>{{ d.volume }}</span>{% endif %}
+                    {% for tag in d.tag_list %}<span>{{ tag }}</span>{% endfor %}
+                  </div>
+
+                  <div class="menu-card__footer">
+                    <div>
+                      <span class="menu-card__price-label">{{ tr.menu_price }}</span>
+                      <div class="menu-card__price">{{ d.price|floatformat:0 }}<small>{{ d.price_label }}</small></div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            {% endif %}
+          {% empty %}
+            <div style="grid-column: 1 / -1; color: var(--mute); padding: 16px 0;">{{ tr.menu_empty_items }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    {% empty %}
+      <div style="text-align: center; padding: 60px 0;">
+        <h2 class="display" style="font-size: 40px;">{{ tr.menu_empty_title }}</h2>
+        <p style="color: var(--mute); margin-top: 14px;">{{ tr.menu_empty_text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section--ink section--tight" style="text-align: center;">
+  <div class="container">
+    <div class="eyebrow on-dark">{{ tr.menu_note }}</div>
+    <p class="lede" style="color: var(--cream); max-width: 680px; margin: 14px auto 0;">
+      {{ tr.menu_note_text }}
+    </p>
+  </div>
+</section>
+
+{% endblock %}

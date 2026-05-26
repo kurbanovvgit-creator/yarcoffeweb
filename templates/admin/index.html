@@ -1,0 +1,54 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div style="display: grid; gap: 24px; margin-bottom: 28px;">
+  <div style="background: linear-gradient(135deg, #2b1b10, #0d0a08);
+              border: 1px solid rgba(255,255,255,0.08);
+              border-radius: 18px;
+              padding: 36px 40px;
+              display: grid;
+              grid-template-columns: 1.4fr 1fr;
+              gap: 32px;
+              align-items: center;">
+    <div>
+      <div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(245,239,230,.55);">Dashboard</div>
+      <h1 style="font-family: 'Cormorant Garamond', 'Playfair Display', serif; font-size: 48px; line-height: 0.95; margin: 14px 0 12px; color: #fbf6ec; letter-spacing: -0.02em;">
+        Добро пожаловать,<br>{{ request.user.get_short_name|default:request.user.username }}.
+      </h1>
+      <p style="color: rgba(245,239,230,.6); max-width: 480px; font-size: 14px;">
+        Управляйте напитками, галереей, отзывами и контентом сайта Yarcoffee.
+        Все изменения сохраняются автоматически и сразу появляются на сайте.
+      </p>
+    </div>
+    <div id="dashboard-stats" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;"></div>
+  </div>
+</div>
+
+{{ block.super }}
+
+<script>
+  (function () {
+    const target = document.getElementById('dashboard-stats');
+    if (!target) return;
+    const stats = {{ yc_stats_json|safe|default:"{}" }};
+    const items = [
+      { label: 'Напитки', value: stats.drinks || 0 },
+      { label: 'Категории', value: stats.categories || 0 },
+      { label: 'Галерея', value: stats.gallery || 0 },
+      { label: 'Отзывы', value: stats.reviews || 0 },
+      { label: 'Заявки', value: stats.messages || 0 },
+      { label: 'Команда', value: stats.team || 0 },
+    ];
+    target.innerHTML = items.map(i => `
+      <div style="background: rgba(255,255,255,0.04);
+                  border: 1px solid rgba(255,255,255,0.08);
+                  border-radius: 14px;
+                  padding: 20px;">
+        <div style="font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(245,239,230,.55);">${i.label}</div>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: 40px; line-height: 1; margin-top: 8px; color: #fbf6ec;">${i.value}</div>
+      </div>
+    `).join('');
+  })();
+</script>
+{% endblock %}

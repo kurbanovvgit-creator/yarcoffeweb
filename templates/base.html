@@ -1,0 +1,43 @@
+{% load static %}<!DOCTYPE html>
+<html lang="{{ current_language }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d0a08" />
+  <title>{% block title %}{{ site_settings.brand_name }} — {{ tr.site_tagline }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{{ tr.site_tagline }}. {{ site_settings.address }}. {{ tr.meta_working }} {{ site_settings.working_hours }}.{% endblock %}" />
+  <meta name="robots" content="index,follow" />
+  <meta property="og:title" content="{% block og_title %}{{ site_settings.brand_name }}{% endblock %}" />
+  <meta property="og:description" content="{% block og_description %}{{ site_settings.tagline }}{% endblock %}" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="{% static 'icons/favicon.svg' %}" />
+  <link rel="stylesheet" href="{% static 'css/fonts.css' %}?v=11" />
+  <link rel="stylesheet" href="{% static 'css/tailwind.css' %}?v=11" />
+  <link rel="stylesheet" href="{% static 'css/site.css' %}?v=11" />
+  {% block extra_head %}{% endblock %}
+</head>
+<body data-page="{% block page_id %}default{% endblock %}">
+
+  {% include "components/loader.html" %}
+  {% include "components/navbar.html" %}
+
+  <main>
+    {% if messages %}
+      <div class="container" style="padding-top: 120px;">
+        {% for message in messages %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "components/footer.html" %}
+  {% include "components/lightbox.html" %}
+
+  <script src="{% static 'js/main.js' %}?v=11" defer></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

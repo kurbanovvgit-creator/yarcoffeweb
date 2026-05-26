@@ -1,0 +1,46 @@
+{% load static %}
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img class="footer__logo" src="{% static 'images/logo/logo.png' %}" alt="{{ site_settings.brand_name }}" loading="lazy" />
+        <p class="footer__tagline">{{ site_settings.footer_note }}</p>
+      </div>
+
+      <div>
+        <h4>{{ tr.footer_navigation }}</h4>
+        <ul>
+          <li><a href="{{ site_urls.home }}">{{ tr.nav_home }}</a></li>
+          <li><a href="{{ site_urls.menu }}">{{ tr.nav_menu }}</a></li>
+          <li><a href="{{ site_urls.about }}">{{ tr.nav_about }}</a></li>
+          <li><a href="{{ site_urls.contacts }}">{{ tr.nav_contacts }}</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>{{ tr.footer_contacts }}</h4>
+        <ul>
+          <li>{{ site_settings.address }}</li>
+          {% if site_settings.address_secondary %}<li>{{ site_settings.address_secondary }}</li>{% endif %}
+          <li>{{ site_settings.phone }}</li>
+          <li><a href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>{{ tr.footer_socials }}</h4>
+        <ul>
+          <li><a href="{{ site_settings.instagram }}" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="{{ site_settings.tiktok }}" target="_blank" rel="noopener">TikTok</a></li>
+          {% if site_settings.telegram %}<li><a href="{{ site_settings.telegram }}" target="_blank" rel="noopener">Telegram</a></li>{% endif %}
+          {% if site_settings.whatsapp %}<li><a href="{{ site_settings.whatsapp }}" target="_blank" rel="noopener">WhatsApp</a></li>{% endif %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div>© {{ year }} {{ site_settings.brand_name }} · {{ tr.footer_rights }}</div>
+      <div>{{ site_settings.working_hours }}</div>
+    </div>
+  </div>
+</footer>

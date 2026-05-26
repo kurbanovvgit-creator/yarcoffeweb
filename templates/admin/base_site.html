@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} · Yarcoffee admin{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+  <link rel="icon" type="image/svg+xml" href="{% static 'icons/favicon.svg' %}" />
+{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+  <a href="{% url 'admin:index' %}">YARCOFFEE · Admin</a>
+</div>
+<p style="margin: 4px 0 0; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(245,239,230,.5);">
+  Premium coffee dashboard
+</p>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block footer %}
+<div id="footer">
+  <small>© Yarcoffee · {% now "Y" %} · <a href="{% url 'core:home' %}" style="color: #c69753;">Открыть сайт →</a></small>
+</div>
+{% endblock %}

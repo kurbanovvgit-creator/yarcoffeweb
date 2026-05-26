@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_id %}contacts{% endblock %}
+{% block title %}{{ tr.contacts_title }} · {{ site_settings.brand_name }}{% endblock %}
+
+{% block content %}
+
+<section class="page-heading">
+  <div class="container">
+    <div class="eyebrow">Contacts</div>
+    <h1 class="display">{{ tr.contacts_title }}</h1>
+    <p>{{ tr.contacts_intro }} {{ tr.meta_working }} {{ site_settings.working_hours|lower }}.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="eyebrow">{{ tr.talk_eyebrow }}</div>
+        <h2 class="display contact-info__title">{{ tr.talk_title }}</h2>
+
+        <div class="contact-block">
+          <div class="contact-block__label">{{ tr.address }}</div>
+          <div class="contact-block__value">{{ site_settings.address }}</div>
+          {% if site_settings.address_secondary %}<div style="color: var(--mute);">{{ site_settings.address_secondary }}</div>{% endif %}
+        </div>
+
+        <div class="contact-block">
+          <div class="contact-block__label">{{ tr.phone }}</div>
+          <a class="contact-block__value" href="tel:{{ site_settings.phone }}">{{ site_settings.phone }}</a>
+        </div>
+
+        <div class="contact-block">
+          <div class="contact-block__label">E-mail</div>
+          <a class="contact-block__value" href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a>
+        </div>
+
+        <div class="contact-block">
+          <div class="contact-block__label">{{ tr.working_hours }}</div>
+          <div class="contact-block__value">{{ site_settings.working_hours }}</div>
+        </div>
+
+        <div class="contact-block">
+          <div class="contact-block__label">{{ tr.socials }}</div>
+          <div class="contact-socials">
+            <a href="{{ site_settings.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+            <a href="{{ site_settings.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
+            {% if site_settings.telegram %}<a href="{{ site_settings.telegram }}" target="_blank" rel="noopener" aria-label="Telegram">TG</a>{% endif %}
+            {% if site_settings.whatsapp %}<a href="{{ site_settings.whatsapp }}" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>{% endif %}
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal reveal--delay-2" method="post" novalidate>
+        {% csrf_token %}
+        <div class="eyebrow">{{ tr.contact_form }}</div>
+        <h3 class="contact-form__title">{{ tr.write_us }}</h3>
+
+        <div class="field-row">
+          <label class="field-label" for="id_name">{{ tr.name }}</label>
+          {{ form.name }}
+        </div>
+        <div class="field-row">
+          <label class="field-label" for="id_email">E-mail</label>
+          {{ form.email }}
+        </div>
+        <div class="field-row">
+          <label class="field-label" for="id_phone">{{ tr.phone }}</label>
+          {{ form.phone }}
+        </div>
+        <div class="field-row">
+          <label class="field-label" for="id_message">{{ tr.message }}</label>
+          {{ form.message }}
+        </div>
+
+        <button type="submit" class="btn">{{ tr.send_message }}</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section section--paper-deep section--tight">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__row">
+        <div>
+          <div class="eyebrow">{{ tr.find_us }}</div>
+          <h2 class="display" style="font-size: clamp(28px, 3.5vw, 48px); margin-top: 12px;">{{ tr.we_are_here }}</h2>
+        </div>
+        <p class="section-head__intro">{{ site_settings.address }}</p>
+      </div>
+    </div>
+    <iframe
+      class="map-frame"
+      src="{{ site_settings.map_embed_url }}"
+      loading="lazy"
+      title="{{ tr.map_title }} · {{ site_settings.brand_name }}"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+{% endblock %}
