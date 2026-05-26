@@ -1237,12 +1237,22 @@ body[data-page]:not([data-page="home"]) .nav:not(.is-scrolled) .language-switche
 .contact-form {
   background: var(--cream);
   border-radius: var(--radius);
-  padding: 30px;
+  padding: 28px;
   display: grid;
-  gap: 16px;
+  gap: 14px;
   box-shadow: var(--shadow-sm);
 }
 .contact-form__title { font-family: var(--font-display); font-size: 28px; }
+.contact-form__map {
+  display: grid;
+  gap: 10px;
+  padding-top: 4px;
+}
+.contact-form__map p {
+  color: var(--mute);
+  font-size: 13px;
+  margin-top: 4px;
+}
 .flash {
   padding: 14px 18px;
   border-radius: var(--radius-sm);
@@ -1257,6 +1267,12 @@ body[data-page]:not([data-page="home"]) .nav:not(.is-scrolled) .language-switche
   min-height: 300px;
   background: var(--paper-soft);
   filter: grayscale(0.1) contrast(1.02);
+}
+.map-frame--compact {
+  min-height: 160px;
+  height: 160px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
 }
 
 /* --------------------------------- Footer ------------------------------- */

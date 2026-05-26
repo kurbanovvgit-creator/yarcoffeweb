@@ -75,30 +75,23 @@
           {{ form.message }}
         </div>
 
+        <div class="contact-form__map">
+          <div>
+            <div class="eyebrow">{{ tr.find_us }}</div>
+            <p>{{ site_settings.address }}</p>
+          </div>
+          <iframe
+            class="map-frame map-frame--compact"
+            src="{{ site_settings.map_embed_url }}"
+            loading="lazy"
+            title="{{ tr.map_title }} · {{ site_settings.brand_name }}"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
         <button type="submit" class="btn">{{ tr.send_message }}</button>
       </form>
     </div>
-  </div>
-</section>
-
-<section class="section section--paper-deep section--tight">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-head__row">
-        <div>
-          <div class="eyebrow">{{ tr.find_us }}</div>
-          <h2 class="display" style="font-size: clamp(28px, 3.5vw, 48px); margin-top: 12px;">{{ tr.we_are_here }}</h2>
-        </div>
-        <p class="section-head__intro">{{ site_settings.address }}</p>
-      </div>
-    </div>
-    <iframe
-      class="map-frame"
-      src="{{ site_settings.map_embed_url }}"
-      loading="lazy"
-      title="{{ tr.map_title }} · {{ site_settings.brand_name }}"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
   </div>
 </section>
 
