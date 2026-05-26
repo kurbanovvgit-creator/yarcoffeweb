@@ -24,10 +24,7 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Downloaded / generated assets — regenerate via `python manage.py setup_assets`
-static/fonts/
-static/css/tailwind.css
-static/css/fonts.css
+# Runtime uploads
 media/
 
 # Collected staticfiles

@@ -94,6 +94,21 @@ Open <http://127.0.0.1:8000/> for the site and <http://127.0.0.1:8000/admin/> fo
 
 ---
 
+## Deploy To PythonAnywhere
+
+See the step-by-step guide in `deploy/PYTHONANYWHERE.md`.
+
+Production settings are controlled with environment variables:
+
+| Variable | Example |
+| --- | --- |
+| `DJANGO_DEBUG` | `0` |
+| `DJANGO_SECRET_KEY` | generated secret key |
+| `DJANGO_ALLOWED_HOSTS` | `yourusername.pythonanywhere.com` |
+| `DJANGO_CSRF_TRUSTED_ORIGINS` | `https://yourusername.pythonanywhere.com` |
+
+---
+
 ## Admin — what you can manage
 
 The admin is at `/admin/` and is restyled to match the site.

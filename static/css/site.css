@@ -300,6 +300,8 @@ body[data-page]:not([data-page="home"]) .nav:not(.is-scrolled) {
   backdrop-filter: blur(14px);
 }
 body[data-page]:not([data-page="home"]) .nav:not(.is-scrolled) .nav__cta:hover {
+  background: var(--ink);
+  border-color: var(--ink);
   color: var(--cream);
 }
 .nav__inner {
@@ -371,7 +373,11 @@ body[data-page]:not([data-page="home"]) .nav:not(.is-scrolled) .nav__logo {
   border-radius: 999px;
   transition: all 280ms var(--ease);
 }
-.nav__cta:hover { background: currentColor; color: var(--ink); }
+.nav__cta:hover {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: var(--ink);
+}
 .language-switcher {
   display: inline-flex;
   align-items: center;
