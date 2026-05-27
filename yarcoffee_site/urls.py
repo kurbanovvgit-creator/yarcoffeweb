@@ -20,6 +20,8 @@ urlpatterns = [
     re_path(r"^(?P<lang>tk|ru|en)/gallery/$", gallery_views.gallery_list),
 ]
 
+# Admin uploads (drinks, gallery, hero, etc.) live under MEDIA_ROOT.
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

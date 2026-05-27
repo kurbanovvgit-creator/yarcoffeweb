@@ -100,11 +100,17 @@ URL:       /static/
 Directory: /home/YOUR_USERNAME/yarcoffee/staticfiles
 ```
 
-Optional, only if you upload files through admin:
+Required for photos uploaded in admin (drinks, gallery, hero):
 
 ```text
 URL:       /media/
 Directory: /home/YOUR_USERNAME/yarcoffee/media
+```
+
+Create the folder if needed:
+
+```bash
+mkdir -p ~/yarcoffee/media
 ```
 
 ## 8. Reload

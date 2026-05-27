@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n_extras %}
+{% load asset_extras %}
 
 {% block page_id %}about{% endblock %}
 {% block title %}{{ tr.about_title }} · {{ site_settings.brand_name }}{% endblock %}
@@ -21,7 +22,7 @@
       <div class="split {% if forloop.counter|divisibleby:2 %}split--reverse{% endif %} reveal" style="margin-bottom: {% if not forloop.last %}80px{% else %}0{% endif %};">
         <div class="split__media">
           {% if block.image %}
-            <img src="{% static 'images/' %}{{ block.image.name }}" alt="{{ block.image_alt }}" loading="lazy" />
+            <img src="{{ block.image|asset_url }}" alt="{{ block.image_alt }}" loading="lazy" />
           {% else %}
             <div class="placeholder-art">{{ block.title|slice:":1" }}</div>
           {% endif %}
@@ -83,9 +84,9 @@
 
     <div class="gallery-grid">
       {% for g in interior %}
-        <div class="gallery-tile {{ g.span }} reveal" {% if g.image %}data-lightbox-trigger data-src="{% static 'images/' %}{{ g.image.name }}"{% endif %}>
+        <div class="gallery-tile {{ g.span }} reveal" {% if g.image %}data-lightbox-trigger data-src="{{ g.image|asset_url }}"{% endif %}>
           {% if g.image %}
-            <img src="{% static 'images/' %}{{ g.image.name }}" alt="{{ g.title }}" loading="lazy" />
+            <img src="{{ g.image|asset_url }}" alt="{{ g.title }}" loading="lazy" />
           {% else %}
             <div class="placeholder-art">{{ g.title|default:"Y"|slice:":1" }}</div>
           {% endif %}

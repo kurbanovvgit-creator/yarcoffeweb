@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n_extras %}
+{% load asset_extras %}
 
 {% block page_id %}menu{% endblock %}
 {% block title %}{{ tr.menu_title }} · {{ site_settings.brand_name }}{% endblock %}
@@ -33,7 +34,7 @@
               <article class="menu-card reveal">
                 <div class="menu-card__media">
                   {% if d.image %}
-                    <img src="{% static 'images/' %}{{ d.image.name }}" alt="{{ d.name }}" loading="lazy" />
+                    <img src="{{ d.image|asset_url }}" alt="{{ d.name|lt:current_language }}" loading="lazy" />
                   {% else %}
                     <div class="placeholder-art" style="font-size: 34px;">{{ d.name|slice:":1" }}</div>
                   {% endif %}

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n_extras %}
+{% load asset_extras %}
 
 {% block page_id %}gallery{% endblock %}
 {% block title %}{{ tr.gallery_title }} · {{ site_settings.brand_name }}{% endblock %}
@@ -27,9 +28,9 @@
 
     <div class="gallery-grid">
       {% for g in images %}
-        <div class="gallery-tile {{ g.span }} reveal reveal--delay-{{ forloop.counter|divisibleby:4 }}" {% if g.image %}data-lightbox-trigger data-src="{% static 'images/' %}{{ g.image.name }}"{% endif %}>
+        <div class="gallery-tile {{ g.span }} reveal reveal--delay-{{ forloop.counter|divisibleby:4 }}" {% if g.image %}data-lightbox-trigger data-src="{{ g.image|asset_url }}"{% endif %}>
           {% if g.image %}
-            <img src="{% static 'images/' %}{{ g.image.name }}" alt="{{ g.title }}" loading="lazy" />
+            <img src="{{ g.image|asset_url }}" alt="{{ g.title }}" loading="lazy" />
           {% else %}
             <div class="placeholder-art">{{ g.title|default:"Y"|slice:":1" }}</div>
           {% endif %}

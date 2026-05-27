@@ -1,9 +1,9 @@
-{% load static %}
 {% load i18n_extras %}
+{% load asset_extras %}
 <article class="drink-card reveal">
   <div class="drink-card__media">
     {% if drink.image %}
-      <img src="{% static 'images/' %}{{ drink.image.name }}" alt="{{ drink.name }}" loading="lazy" />
+      <img src="{{ drink.image|asset_url }}" alt="{{ drink.name|lt:current_language }}" loading="lazy" />
     {% else %}
       <div class="placeholder-art">{{ drink.name|slice:":1" }}</div>
     {% endif %}

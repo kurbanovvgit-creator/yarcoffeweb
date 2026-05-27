@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n_extras %}
+{% load asset_extras %}
 
 {% block page_id %}home{% endblock %}
 {% block title %}{{ site_settings.brand_name }} · {{ tr.site_tagline }}{% endblock %}
@@ -12,7 +13,7 @@
   <div class="hero__media">
     {% with hero=hero_slides.first %}
       {% if hero and hero.image %}
-        <img src="{% static 'images/' %}{{ hero.image.name }}" alt="{{ hero.title }}" />
+        <img src="{{ hero.image|asset_url }}" alt="{{ hero.title }}" />
       {% else %}
         <div class="placeholder-art" style="font-size: 140px; opacity:.3;">YAR</div>
       {% endif %}
@@ -106,7 +107,7 @@
       <div class="split__media" style="aspect-ratio: 1/1;">
         {% with hero=hero_slides.first %}
           {% if hero and hero.image %}
-            <img src="{% static 'images/' %}{{ hero.image.name }}" alt="Beans" loading="lazy" />
+            <img src="{{ hero.image|asset_url }}" alt="Beans" loading="lazy" />
           {% else %}<div class="placeholder-art">◉</div>{% endif %}
         {% endwith %}
       </div>
@@ -129,7 +130,7 @@
       <div class="split {% if forloop.counter|divisibleby:2 %}split--reverse{% endif %} reveal" style="margin-bottom: {% if not forloop.last %}80px{% else %}0{% endif %};">
         <div class="split__media">
           {% if block.image %}
-            <img src="{% static 'images/' %}{{ block.image.name }}" alt="{{ block.image_alt }}" loading="lazy" />
+            <img src="{{ block.image|asset_url }}" alt="{{ block.image_alt }}" loading="lazy" />
           {% else %}
             <div class="placeholder-art">{{ block.title|slice:":1" }}</div>
           {% endif %}
@@ -178,7 +179,7 @@
           <p class="review-card__text">«{{ r.text|lt:current_language }}»</p>
           <div class="review-card__author">
             <div class="review-card__avatar">
-              {% if r.avatar %}<img src="{% static 'images/' %}{{ r.avatar.name }}" alt="{{ r.author }}" />{% endif %}
+              {% if r.avatar %}<img src="{{ r.avatar|asset_url }}" alt="{{ r.author }}" />{% endif %}
             </div>
             <div>
               <div>{{ r.author }}</div>

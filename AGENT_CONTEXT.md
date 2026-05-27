@@ -71,6 +71,16 @@ python manage.py runserver
 
 Если карта пустая в iframe (блокировка Google в сети) — работает ссылка `map_open_url` / «Открыть в Google Maps».
 
+## Загрузка фото в админке (напитки, галерея)
+
+**Проблема:** шаблоны строили URL как `/static/images/...`, а админка сохраняет в `/media/...`.
+
+**Решение:** фильтр `asset_url` — `apps/core/assets.py`, `apps/core/templatetags/asset_extras.py`. В шаблонах: `{{ obj.image|asset_url }}`.
+
+На PythonAnywhere обязательно: **Web → Static files** → `/media/` → `~/yarcoffee/media`.
+
+---
+
 ## Не делалось / открытые вопросы
 
 - Push на GitHub — после создания этого файла (см. последний коммит).
