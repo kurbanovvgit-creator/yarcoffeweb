@@ -62,6 +62,9 @@ class Command(BaseCommand):
         ss.instagram = "https://www.instagram.com/yarcoffee.tm/"
         ss.tiktok = "https://www.tiktok.com/@yarcoffee.tm"
         ss.footer_note = "Crafted with love. Brewed for the neighbourhood."
+        from apps.core.maps import DEFAULT_MAP_EMBED_URL
+
+        ss.map_embed_url = DEFAULT_MAP_EMBED_URL
         ss.save()
         self.stdout.write("  -- site settings updated")
 

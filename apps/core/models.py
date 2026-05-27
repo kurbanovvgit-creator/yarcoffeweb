@@ -3,6 +3,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from .maps import DEFAULT_MAP_EMBED_URL
+
 
 class SiteSettings(models.Model):
     """Singleton-style model holding global site settings."""
@@ -28,8 +30,10 @@ class SiteSettings(models.Model):
     whatsapp = models.URLField(_("WhatsApp"), blank=True, default="")
     map_embed_url = models.URLField(
         _("Карта (embed URL)"),
+        max_length=500,
         blank=True,
-        default="https://www.openstreetmap.org/export/embed.html?bbox=58.36%2C37.93%2C58.40%2C37.96&layer=mapnik",
+        default=DEFAULT_MAP_EMBED_URL,
+        help_text=_("Embed-ссылка из Google Maps → Поделиться → Встроить карту."),
     )
 
     footer_note = models.TextField(
@@ -48,6 +52,23 @@ class SiteSettings(models.Model):
     def get_solo(cls):
         obj, _created = cls.objects.get_or_create(pk=1)
         return obj
+
+    def map_search_query(self):
+        from .maps import map_search_query
+
+        return map_search_query(self)
+
+    @property
+    def map_open_url(self):
+        from .maps import map_open_url
+
+        return map_open_url(self)
+
+    @property
+    def map_iframe_src(self):
+        from .maps import map_iframe_src
+
+        return map_iframe_src(self)
 
 
 class HeroSlide(models.Model):

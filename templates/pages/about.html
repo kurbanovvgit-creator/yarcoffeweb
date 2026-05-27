@@ -60,57 +60,13 @@
   <div class="features">
     {% for f in features %}
       <div class="feature reveal reveal--delay-{{ forloop.counter }}">
-        <span class="feature__icon">
-          {% if f.icon == 'wifi' %}∿{% elif f.icon == 'leaf' %}❦{% elif f.icon == 'clock' %}◷{% elif f.icon == 'heart' %}♥{% elif f.icon == 'beans' %}◉{% else %}☕{% endif %}
-        </span>
+        <span class="feature__icon">{% include "components/feature_icon.html" with icon=f.icon %}</span>
         <h3 class="feature__title">{{ f.title|lt:current_language }}</h3>
         <p class="feature__desc">{{ f.description|lt:current_language }}</p>
       </div>
     {% endfor %}
   </div>
   <div class="container" style="padding-top: 64px; padding-bottom: 64px;"></div>
-</section>
-
-<!-- Team -->
-<section class="section">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-head__row">
-        <div>
-          <div class="eyebrow">Our team</div>
-          <h2 class="display" style="margin-top: 12px;">{{ tr.team_title }}</h2>
-        </div>
-        <p class="section-head__intro">{{ tr.team_intro }}</p>
-      </div>
-    </div>
-
-    <div class="team-grid">
-      {% for m in team %}
-        <article class="team-card reveal reveal--delay-{{ forloop.counter|divisibleby:4 }}">
-          <div class="team-card__media">
-            {% if m.photo %}
-              <img src="{% static 'images/' %}{{ m.photo.name }}" alt="{{ m.name }}" loading="lazy" />
-            {% else %}
-              <div class="placeholder-art">{{ m.name|slice:":1" }}</div>
-            {% endif %}
-          </div>
-          <div class="team-card__body">
-            <div class="team-card__name">{{ m.name }}</div>
-            <div class="team-card__role">{{ m.role|lt:current_language }}</div>
-            {% if m.bio %}<p style="color: var(--mute); margin-top: 8px; font-size: 13px;">{{ m.bio|lt:current_language }}</p>{% endif %}
-          </div>
-        </article>
-      {% empty %}
-        <article class="team-card">
-          <div class="team-card__media"><div class="placeholder-art">Y</div></div>
-          <div class="team-card__body">
-            <div class="team-card__name">{{ tr.soon }}</div>
-            <div class="team-card__role">{{ tr.team_yarcoffee }}</div>
-          </div>
-        </article>
-      {% endfor %}
-    </div>
-  </div>
 </section>
 
 {% if interior %}

@@ -51,6 +51,27 @@
             {% if site_settings.whatsapp %}<a href="{{ site_settings.whatsapp }}" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>{% endif %}
           </div>
         </div>
+
+        <div class="contact-map reveal reveal--delay-1">
+          <div class="contact-block__label">{{ tr.find_us }}</div>
+          <p class="contact-map__address">{{ site_settings.map_search_query }}</p>
+          <div class="map-frame-wrap">
+            <iframe
+              class="map-frame"
+              src="{{ site_settings.map_iframe_src }}"
+              width="600"
+              height="450"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="{{ tr.map_title }} · {{ site_settings.brand_name }}">
+            </iframe>
+          </div>
+          <a href="{{ site_settings.map_open_url }}" class="btn--link contact-map__open" target="_blank" rel="noopener noreferrer">
+            {{ tr.open_in_maps }} →
+          </a>
+        </div>
       </div>
 
       <form class="contact-form reveal reveal--delay-2" method="post" novalidate>
@@ -73,20 +94,6 @@
         <div class="field-row">
           <label class="field-label" for="id_message">{{ tr.message }}</label>
           {{ form.message }}
-        </div>
-
-        <div class="contact-form__map">
-          <div>
-            <div class="eyebrow">{{ tr.find_us }}</div>
-            <p>{{ site_settings.address }}</p>
-          </div>
-          <iframe
-            class="map-frame map-frame--compact"
-            src="{{ site_settings.map_embed_url }}"
-            loading="lazy"
-            title="{{ tr.map_title }} · {{ site_settings.brand_name }}"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
         </div>
 
         <button type="submit" class="btn">{{ tr.send_message }}</button>

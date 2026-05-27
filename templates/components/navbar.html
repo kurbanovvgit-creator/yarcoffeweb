@@ -22,24 +22,25 @@
       <a href="{{ site_urls.contacts }}" class="nav__cta">{{ tr.nav_cta }}</a>
     </div>
 
-    <button class="nav__burger" data-burger aria-label="{{ tr.nav_menu }}"><span></span></button>
-  </div>
-
-  <div class="nav__mobile" data-mobile-menu>
-    <a href="{{ site_urls.home }}">{{ tr.nav_home }}</a>
-    <a href="{{ site_urls.menu }}">{{ tr.nav_menu }}</a>
-    <a href="{{ site_urls.about }}">{{ tr.nav_about }}</a>
-    <a href="{{ site_urls.contacts }}">{{ tr.nav_contacts }}</a>
-    <div class="language-switcher language-switcher--mobile" aria-label="Language">
-      {% for lang in language_options %}
-        <a class="{% if lang.active %}is-active{% endif %}" href="{{ lang.url }}">{{ lang.name }}</a>
-      {% endfor %}
-    </div>
-    <div class="nav__mobile-meta">
-      <div>{{ site_settings.address }}</div>
-      <div>{{ site_settings.working_hours }}</div>
-      <div>{{ site_settings.phone }}</div>
-    </div>
+    <button class="nav__burger" type="button" data-burger data-label-close="{{ tr.nav_close }}" aria-label="{{ tr.nav_menu }}" aria-expanded="false" aria-controls="mobile-menu"><span></span></button>
   </div>
 </header>
+
+<div class="nav__mobile-backdrop" data-mobile-backdrop hidden></div>
+<nav class="nav__mobile" id="mobile-menu" data-mobile-menu aria-hidden="true" aria-label="{{ tr.nav_aria }}">
+  <a href="{{ site_urls.home }}">{{ tr.nav_home }}</a>
+  <a href="{{ site_urls.menu }}">{{ tr.nav_menu }}</a>
+  <a href="{{ site_urls.about }}">{{ tr.nav_about }}</a>
+  <a href="{{ site_urls.contacts }}">{{ tr.nav_contacts }}</a>
+  <div class="language-switcher language-switcher--mobile" aria-label="Language">
+    {% for lang in language_options %}
+      <a class="{% if lang.active %}is-active{% endif %}" href="{{ lang.url }}">{{ lang.name }}</a>
+    {% endfor %}
+  </div>
+  <div class="nav__mobile-meta">
+    <div>{{ site_settings.address }}</div>
+    <div>{{ site_settings.working_hours }}</div>
+    <div>{{ site_settings.phone }}</div>
+  </div>
+</nav>
 {% endwith %}

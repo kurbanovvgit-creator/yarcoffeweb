@@ -33,17 +33,44 @@
   /* ---------- Mobile menu toggle ---------- */
   const burger = document.querySelector("[data-burger]");
   const mobile = document.querySelector("[data-mobile-menu]");
+  const mobileBackdrop = document.querySelector("[data-mobile-backdrop]");
+
+  const setMobileMenu = (open) => {
+    if (!mobile || !burger) return;
+    mobile.classList.toggle("is-open", open);
+    burger.classList.toggle("is-open", open);
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    mobile.setAttribute("aria-hidden", open ? "false" : "true");
+    if (nav) nav.classList.toggle("is-menu-open", open);
+    document.body.classList.toggle("is-nav-open", open);
+    if (mobileBackdrop) {
+      mobileBackdrop.classList.toggle("is-open", open);
+      mobileBackdrop.hidden = !open;
+    }
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    document.body.style.overflow = open ? "hidden" : "";
+    if (burger.dataset.labelOpen) {
+      burger.setAttribute(
+        "aria-label",
+        open ? burger.dataset.labelClose || "Close menu" : burger.dataset.labelOpen
+      );
+    }
+  };
+
   if (burger && mobile) {
-    burger.addEventListener("click", () => {
-      mobile.classList.toggle("is-open");
-      document.body.style.overflow = mobile.classList.contains("is-open") ? "hidden" : "";
+    burger.dataset.labelOpen = burger.getAttribute("aria-label") || "Menu";
+    burger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setMobileMenu(!mobile.classList.contains("is-open"));
     });
-    mobile.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => {
-        mobile.classList.remove("is-open");
-        document.body.style.overflow = "";
-      })
-    );
+    if (mobileBackdrop) mobileBackdrop.addEventListener("click", () => setMobileMenu(false));
+    mobile.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMobileMenu(false)));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobile.classList.contains("is-open")) setMobileMenu(false);
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 900 && mobile.classList.contains("is-open")) setMobileMenu(false);
+    });
   }
 
   /* ---------- Reveal on scroll (IntersectionObserver) ---------- */

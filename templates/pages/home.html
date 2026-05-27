@@ -74,17 +74,15 @@
   <div class="features">
     {% for f in features %}
       <div class="feature reveal reveal--delay-{{ forloop.counter }}">
-        <span class="feature__icon">
-          {% if f.icon == 'wifi' %}∿{% elif f.icon == 'leaf' %}❦{% elif f.icon == 'clock' %}◷{% elif f.icon == 'heart' %}♥{% elif f.icon == 'beans' %}◉{% else %}☕{% endif %}
-        </span>
+        <span class="feature__icon">{% include "components/feature_icon.html" with icon=f.icon %}</span>
         <h3 class="feature__title">{{ f.title|lt:current_language }}</h3>
         <p class="feature__desc">{{ f.description|lt:current_language }}</p>
       </div>
     {% empty %}
-      <div class="feature"><span class="feature__icon">☕</span><h3 class="feature__title">Specialty</h3><p class="feature__desc">{{ tr.beans_body }}</p></div>
-      <div class="feature"><span class="feature__icon">∿</span><h3 class="feature__title">Free Wi-Fi</h3><p class="feature__desc">{{ "Работайте и встречайтесь у нас часами."|lt:current_language }}</p></div>
-      <div class="feature"><span class="feature__icon">♥</span><h3 class="feature__title">{{ "Тёплая атмосфера"|lt:current_language }}</h3><p class="feature__desc">{{ "Уютный интерьер и дружелюбная команда."|lt:current_language }}</p></div>
-      <div class="feature"><span class="feature__icon">◷</span><h3 class="feature__title">07:30 — 22:45</h3><p class="feature__desc">{{ "Открыты каждый день недели."|lt:current_language }}</p></div>
+      <div class="feature"><span class="feature__icon">{% include "components/feature_icon.html" with icon="beans" %}</span><h3 class="feature__title">Specialty</h3><p class="feature__desc">{{ tr.beans_body }}</p></div>
+      <div class="feature"><span class="feature__icon">{% include "components/feature_icon.html" with icon="wifi" %}</span><h3 class="feature__title">Free Wi-Fi</h3><p class="feature__desc">{{ "Работайте и встречайтесь у нас часами."|lt:current_language }}</p></div>
+      <div class="feature"><span class="feature__icon">{% include "components/feature_icon.html" with icon="heart" %}</span><h3 class="feature__title">{{ "Тёплая атмосфера"|lt:current_language }}</h3><p class="feature__desc">{{ "Уютный интерьер и дружелюбная команда."|lt:current_language }}</p></div>
+      <div class="feature"><span class="feature__icon">{% include "components/feature_icon.html" with icon="clock" %}</span><h3 class="feature__title">07:30 — 22:45</h3><p class="feature__desc">{{ "Открыты каждый день недели."|lt:current_language }}</p></div>
     {% endfor %}
   </div>
 

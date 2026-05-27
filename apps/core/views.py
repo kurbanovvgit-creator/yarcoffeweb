@@ -6,7 +6,7 @@ from apps.menu.models import Drink, DrinkCategory
 
 from .forms import ContactForm
 from .i18n import get_ui, normalize_language
-from .models import Feature, HeroSlide, Review, StorySection, TeamMember
+from .models import Feature, HeroSlide, Review, StorySection
 
 
 def home(request, lang=None):
@@ -39,7 +39,6 @@ def home(request, lang=None):
 
 def about(request, lang=None):
     story_blocks = StorySection.objects.filter(is_active=True)
-    team = TeamMember.objects.filter(is_active=True)
     features = Feature.objects.filter(is_active=True)
     interior = GalleryImage.objects.filter(is_active=True, category="interior")[:6]
     return render(
@@ -47,7 +46,6 @@ def about(request, lang=None):
         "pages/about.html",
         {
             "story_blocks": story_blocks,
-            "team": team,
             "features": features,
             "interior": interior,
         },

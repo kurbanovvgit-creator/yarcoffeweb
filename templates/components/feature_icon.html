@@ -1,0 +1,25 @@
+{% with kind=icon|default:"cup" %}
+<svg class="feature__icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {% if kind == "wifi" %}
+  <path d="M2.5 8.5a14 14 0 0 1 19 0"/>
+  <path d="M5.5 11.5a10 10 0 0 1 13 0"/>
+  <path d="M8.5 14.5a6 6 0 0 1 7 0"/>
+  <circle cx="12" cy="18" r="1.25" fill="currentColor" stroke="none"/>
+  {% elif kind == "leaf" %}
+  <path d="M12 21c-4-3.5-6-7-6-11a6 6 0 0 1 12 0c0 4-2 7.5-6 11z"/>
+  <path d="M12 21V10"/>
+  {% elif kind == "clock" %}
+  <circle cx="12" cy="12" r="8.5"/>
+  <path d="M12 7.5V12l3 2"/>
+  {% elif kind == "heart" %}
+  <path d="M12 20.5s-7-4.35-7-9.5A4.5 4.5 0 0 1 12 8.5a4.5 4.5 0 0 1 7 2.5c0 5.15-7 9.5-7 9.5z"/>
+  {% elif kind == "beans" %}
+  <path d="M9.5 4.5c-2.2 1.2-3.5 3.4-3.5 6a6.5 6.5 0 0 0 6.5 6.5c2.6 0 4.8-1.3 6-3.5-2.8 1.4-6.2.2-7.5-2.6-.8-1.8-.6-4 .5-6.4z"/>
+  <path d="M14.5 19.5c2.2-1.2 3.5-3.4 3.5-6a6.5 6.5 0 0 0-6.5-6.5c-2.6 0-4.8 1.3-6 3.5 2.8-1.4 6.2-.2 7.5 2.6.8 1.8.6 4-.5 6.4z"/>
+  {% else %}
+  <path d="M7 10V8.5A3.5 3.5 0 0 1 10.5 5h3A3.5 3.5 0 0 1 17 8.5V10"/>
+  <path d="M6 10h12v2.2a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5V10z"/>
+  <path d="M9.5 17.2V19h5v-1.8"/>
+  {% endif %}
+</svg>
+{% endwith %}
